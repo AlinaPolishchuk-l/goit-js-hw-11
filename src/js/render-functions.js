@@ -1,25 +1,25 @@
+import iziToast from 'izitoast';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-let lightbox; 
+let lightbox;
 
 export function renderGallery(images) {
   const gallery = document.querySelector('.gallery');
 
-
-const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
-  <a href="${largeImageURL}" class="gallery-item">
-    <div class="photo-card">
-      <img src="${webformatURL}" alt="${tags}" />
-      <div class="info">
-        <div class="item"><h3>Likes</h3><p>${likes}</p></div>
-        <div class="item"><h3>Views</h3><p>${views}</p></div>
-        <div class="item"><h3>Comments</h3><p>${comments}</p></div>
-        <div class="item"><h3>Downloads</h3><p>${downloads}</p></div>
+  const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+    <a href="${largeImageURL}" class="gallery-item">
+      <div class="photo-card">
+        <img src="${webformatURL}" alt="${tags}" />
+        <div class="info">
+          <div class="item"><h3>Likes</h3><p>${likes}</p></div>
+          <div class="item"><h3>Views</h3><p>${views}</p></div>
+          <div class="item"><h3>Comments</h3><p>${comments}</p></div>
+          <div class="item"><h3>Downloads</h3><p>${downloads}</p></div>
+        </div>
       </div>
-    </div>
-  </a>
-`).join('');
+    </a>
+  `).join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
 
@@ -36,31 +36,28 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-  const loader = document.querySelector('#loader');
-  loader.classList.remove('hidden');
+    const loader = document.querySelector('#loader');
+    loader.classList.add('visible'); 
 }
 
 export function hideLoader() {
-  const loader = document.querySelector('#loader');
-  loader.classList.add('hidden');
+    const loader = document.querySelector('#loader');
+    loader.classList.remove('visible'); 
 }
 
+
 export function showNoResultsMessage() {
-  import('izitoast').then((iziToast) => {
-    iziToast.info({
-      title: 'No Results',
-      message: 'No images found for your search query. Please try again.',
-      position: 'topRight',
-    });
+  iziToast.info({
+    title: 'No Results',
+    message: 'No images found for your search query. Please try again.',
+    position: 'topRight',
   });
 }
 
 export function showErrorMessage() {
-  import('izitoast').then((iziToast) => {
-    iziToast.error({
-      title: 'Error',
-      message: 'Something went wrong. Please try again later.',
-      position: 'topRight',
-    });
+  iziToast.error({
+    title: 'Error',
+    message: 'Something went wrong. Please try again later.',
+    position: 'topRight',
   });
 }
